@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7f2">
+    <title>Droppr</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="aero-window" aria-label="Droppr">
+      <header class="aero-titlebar">
+        <span class="aero-titlebar-icon" aria-hidden="true">♪</span>
+        <div class="aero-titlebar-text"><strong>droppr.</strong> - Your local time: <time id="clock" aria-live="off"></time></div>
+        <div class="aero-caption" aria-hidden="true"><span class="min"></span><span class="max"></span><span class="close"></span></div>
+      </header>
+      <div class="aero-body">
+      <section class="intro" aria-labelledby="page-title">
+        <h1 id="page-title">Make your drop.</h1>
+        <p class="intro-copy">Choose the exact moment in a song. We’ll play that clip when the time comes.</p>
+      </section>
+      <div class="workspace">
+        <section class="editor panel" aria-labelledby="song-heading">
+          <div class="section-heading">
+            <div><p class="eyebrow">01 / THE TRACK</p><h2 id="song-heading">Pick your song</h2></div>
+            <label class="button button-secondary file-button" for="song-file">Import song</label>
+            <input id="song-file" class="visually-hidden" type="file" accept="audio/*">
+          </div>
+          <div id="empty-song" class="empty-song"><span class="music-mark" aria-hidden="true">♪</span><p>Your song goes here</p><span>Choose an audio file from your device</span></div>
+          <div id="song-editor" hidden>
+            <div class="track-heading">
+              <div class="track-art" aria-hidden="true">♪</div>
+              <div class="track-info"><strong id="song-name"></strong><span id="song-duration"></span></div>
+              <button id="replace-song" class="text-button" type="button">Replace</button>
+            </div>
+            <audio id="player" controls preload="metadata"></audio>
+            <div class="drop-point-row" aria-live="polite">
+              <span><span class="range-label">DROP POINT</span><strong id="drop-point-label">0:00.0</strong></span>
+              <button id="mark-drop" class="button button-marker" type="button" disabled>Set drop at playhead</button>
+            </div>
+            <p class="helper-text">The song starts from the beginning early so this point lands on schedule.</p>
+          </div>
+        </section>
+        <section class="schedule panel" aria-labelledby="schedule-heading">
+          <p class="eyebrow">02 / THE MOMENT</p>
+          <h2 id="schedule-heading">Set the time</h2>
+          <p class="schedule-copy">Set when the marked point in the song should happen.</p>
+          <form id="drop-form">
+            <label for="drop-time">Drop happens at</label>
+            <input id="drop-time" name="time" type="datetime-local" step="1" required>
+            <p class="helper-text timezone-note">Uses your device’s local time.</p>
+            <button id="schedule-drop" class="button button-primary" type="submit" disabled>Schedule this drop <span aria-hidden="true">↗</span></button>
+            <p id="playback-status" class="status-message" role="status">Import a song to get started.</p>
+          </form>
+        </section>
+      </div>
+      <section class="drops-section" aria-labelledby="drops-heading">
+        <div class="drops-title-row"><div><h2 id="drops-heading">Scheduled drops</h2></div><button id="enable-playback" class="button button-secondary" type="button">Enable playback</button></div>
+        <p class="queue-note">Enable playback before a clip begins, and keep this tab open.</p>
+        <ul id="drop-list" class="drop-list"></ul>
+        <p id="empty-drops" class="empty-drops">Nothing scheduled yet.</p>
+      </section>
+      </div>
+    </main>
+    <footer class="aero-credit"><span>Zetsukae</span><span aria-hidden="true">·</span><span>MIT License</span></footer>
+    <dialog id="schedule-warning" class="warning-dialog" aria-labelledby="warning-heading">
+      <h2 id="warning-heading">Enable playback</h2>
+      <p id="warning-copy">Keep this tab open. The song starts early so your drop point lands at the scheduled time.</p>
+      <div class="warning-actions">
+        <button id="cancel-schedule" class="button button-secondary" type="button">Go back</button>
+        <button id="schedule-without-playback" class="button button-secondary" type="button">Schedule without playback</button>
+        <button id="enable-and-schedule" class="button button-primary" type="button">Enable &amp; schedule</button>
+      </div>
+    </dialog>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
